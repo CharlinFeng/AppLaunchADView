@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A4310" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AppLaunchADView" customModule="AppLaunchADView" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Apt-XT-e7q">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTZ-8n-Qcm">
+                    <rect key="frame" x="532" y="16" width="60" height="24"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.69711325354609932" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="7Yd-EL-AaM"/>
+                        <constraint firstAttribute="height" constant="24" id="rCe-Kt-XeX"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="skipAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="t34-sm-OOa"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Apt-XT-e7q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8kH-wr-NSo"/>
+                <constraint firstItem="MTZ-8n-Qcm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="GU8-Dh-xch"/>
+                <constraint firstAttribute="trailing" secondItem="Apt-XT-e7q" secondAttribute="trailing" id="IKX-Hf-Aty"/>
+                <constraint firstItem="Apt-XT-e7q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TG3-qt-C6M"/>
+                <constraint firstAttribute="trailing" secondItem="MTZ-8n-Qcm" secondAttribute="trailing" constant="8" id="c1Q-w7-5c2"/>
+                <constraint firstAttribute="bottom" secondItem="Apt-XT-e7q" secondAttribute="bottom" id="uZ5-IF-sIw"/>
+            </constraints>
+            <connections>
+                <outlet property="imageV" destination="Apt-XT-e7q" id="0L2-8D-byV"/>
+                <outlet property="skipBtn" destination="MTZ-8n-Qcm" id="NJQ-IX-Hbq"/>
+            </connections>
+            <point key="canvasLocation" x="558" y="528"/>
+        </view>
+    </objects>
+</document>
