@@ -102,6 +102,14 @@ extension AppLaunchADView{
     
     class func saveADWithUrlString(url url: String!){
         
+        if url==nil || url=="" {
+            
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: AppLaunchADViewKey)
+            NSKeyedArchiver.archiveRootObject(0, toFile: arcPath)
+            
+        }
+        
+        
         let url_cache = NSUserDefaults.standardUserDefaults().objectForKey(AppLaunchADViewKey) as? String
         
         if url_cache != nil && url_cache! == url {
