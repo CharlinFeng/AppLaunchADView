@@ -59,7 +59,7 @@ extension AppLaunchADView{
         
         skipBtn.setTitle(str + "\(delay)s", forState: UIControlState.Normal)
         delay = delay - 1
-        if delay < 0 {skipAction(nil)}
+        if delay < 0 {skipAction(false)}
     }
     
     
@@ -77,7 +77,6 @@ extension AppLaunchADView{
                 self.timer = nil
                 self.removeFromSuperview()
         }
-        
     }
     
     private static var arcPath: String! {
@@ -88,26 +87,44 @@ extension AppLaunchADView{
         return path
     }
     
-    private class func saveADData(data: NSData) {
+    private class func saveADData(data: NSData,url: String!) {
         
-        NSKeyedArchiver.archiveRootObject(data, toFile: arcPath)
+        let res = NSKeyedArchiver.archiveRootObject(data, toFile: arcPath)
+        
+        if res {
+            NSUserDefaults.standardUserDefaults().setObject(url, forKey: AppLaunchADViewKey)
+            print("广告数据保存成功")
+        }else {
+            
+            print("广告数据保存失败")
+        }
     }
     
     class func saveADWithUrlString(url url: String!){
         
-        let url = NSURL(string: url)
+        let url_cache = NSUserDefaults.standardUserDefaults().objectForKey(AppLaunchADViewKey) as? String
         
-        let request = NSURLRequest(URL: url!)
+        if url_cache != nil && url_cache! == url {
+            
+            print("广告数据与上一次是一样的，跳过保存！")
+            return
+        }
+        
+        let u = NSURL(string: url)
+        
+        let request = NSURLRequest(URL: u!)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { (r, d, e) -> Void in
             
             if e == nil && (d?.length ?? 0) > 0{
                 
-                saveADData(d!)
+                saveADData(d!,url: url)
+                
+            }else{
+                print("广告数据下载失败")
             }
         }
     }
-    
 }
 
 
