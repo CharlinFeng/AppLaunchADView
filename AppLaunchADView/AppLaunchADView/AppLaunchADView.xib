@@ -15,10 +15,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTZ-8n-Qcm">
-                    <rect key="frame" x="532" y="16" width="60" height="24"/>
+                    <rect key="frame" x="526" y="16" width="66" height="24"/>
                     <color key="backgroundColor" white="0.0" alpha="0.69711325354609932" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="7Yd-EL-AaM"/>
+                        <constraint firstAttribute="width" constant="66" id="7Yd-EL-AaM"/>
                         <constraint firstAttribute="height" constant="24" id="rCe-Kt-XeX"/>
                     </constraints>
                     <state key="normal">
@@ -42,7 +42,7 @@
                 <outlet property="imageV" destination="Apt-XT-e7q" id="0L2-8D-byV"/>
                 <outlet property="skipBtn" destination="MTZ-8n-Qcm" id="NJQ-IX-Hbq"/>
             </connections>
-            <point key="canvasLocation" x="558" y="528"/>
+            <point key="canvasLocation" x="401" y="411"/>
         </view>
     </objects>
 </document>

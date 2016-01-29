@@ -16,7 +16,7 @@ class AppLaunchADView: UIView {
     
     @IBOutlet weak var skipBtn: UIButton!
     @IBOutlet weak var imageV: UIImageView!
-    
+    var needZoomAnim: Bool = false
     
     lazy var str: String = "跳过 "
     
@@ -26,7 +26,7 @@ class AppLaunchADView: UIView {
 
 extension AppLaunchADView{
     
-    class func show(window: UIWindow!, delay: Int){
+    class func show(window: UIWindow!, delay: Int, needZoomAnim: Bool){
         
         let data = NSKeyedUnarchiver.unarchiveObjectWithFile(arcPath) as? NSData
         
@@ -35,6 +35,8 @@ extension AppLaunchADView{
         let img = UIImage(data: data!)
         
         let adView = NSBundle.mainBundle().loadNibNamed("AppLaunchADView", owner: nil, options: nil).first as! AppLaunchADView
+        
+        adView.needZoomAnim = needZoomAnim
         
         adView.imageV.image = img
         
@@ -51,7 +53,7 @@ extension AppLaunchADView{
         
         super.awakeFromNib()
         
-        skipBtn.layer.cornerRadius = 4
+//        skipBtn.layer.cornerRadius = 4
     }
     
     
@@ -67,6 +69,8 @@ extension AppLaunchADView{
     @IBAction func skipAction(sender: AnyObject!) {
         
         UIView.animateWithDuration(1, animations: { () -> Void in
+            
+            if self.needZoomAnim {self.transform = CGAffineTransformMakeScale(1.8, 1.8)}
             
             self.alpha = 0
             
@@ -106,9 +110,7 @@ extension AppLaunchADView{
             
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: AppLaunchADViewKey)
             NSKeyedArchiver.archiveRootObject(0, toFile: arcPath)
-            
         }
-        
         
         let url_cache = NSUserDefaults.standardUserDefaults().objectForKey(AppLaunchADViewKey) as? String
         

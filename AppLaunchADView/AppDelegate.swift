@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        AppLaunchADView.show(window, delay: 3)
+        AppLaunchADView.saveADWithUrlString(url: "http://img.netbian.com/file/2016/0127/4df1f08884ad18c810105fe542978c62.jpg")
+        
+        AppLaunchADView.show(window, delay: 3, needZoomAnim: true)
         
         return true
     }
