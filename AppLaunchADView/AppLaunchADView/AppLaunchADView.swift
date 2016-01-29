@@ -8,7 +8,9 @@
 
 import UIKit
 
-let AppLaunchADViewKey = "AppLaunchADViewKey"
+let AppLaunchADViewDataKey = "AppLaunchADViewDataKey"
+let AppLaunchADViewTimeKey = "AppLaunchADViewTimeKey"
+
 
 class AppLaunchADView: UIView {
     
@@ -30,7 +32,13 @@ extension AppLaunchADView{
         
         let data = NSKeyedUnarchiver.unarchiveObjectWithFile(arcPath) as? NSData
         
-        if data == nil {return}
+        if data == nil {
+            
+            //清空key
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: AppLaunchADViewDataKey)
+            
+            return
+        }
         
         let img = UIImage(data: data!)
         
@@ -53,7 +61,7 @@ extension AppLaunchADView{
         
         super.awakeFromNib()
         
-//        skipBtn.layer.cornerRadius = 4
+        //        skipBtn.layer.cornerRadius = 4
     }
     
     
@@ -96,7 +104,8 @@ extension AppLaunchADView{
         let res = NSKeyedArchiver.archiveRootObject(data, toFile: arcPath)
         
         if res {
-            NSUserDefaults.standardUserDefaults().setObject(url, forKey: AppLaunchADViewKey)
+            NSUserDefaults.standardUserDefaults().setObject(url, forKey: AppLaunchADViewDataKey)
+            
             print("广告数据保存成功")
         }else {
             
@@ -108,17 +117,34 @@ extension AppLaunchADView{
         
         if url==nil || url=="" {
             
-            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: AppLaunchADViewKey)
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: AppLaunchADViewDataKey)
             NSKeyedArchiver.archiveRootObject(0, toFile: arcPath)
         }
         
-        let url_cache = NSUserDefaults.standardUserDefaults().objectForKey(AppLaunchADViewKey) as? String
+        let url_cache = NSUserDefaults.standardUserDefaults().objectForKey(AppLaunchADViewDataKey) as? String
         
-        if url_cache != nil && url_cache! == url {
+        let now: Int = Int(NSDate().timeIntervalSince1970)
+        let last: Int = NSUserDefaults.standardUserDefaults().objectForKey(AppLaunchADViewTimeKey)?.integerValue ?? 0
+        
+        let deprecated = now - last > 24 * 60 * 60
+        
+        print("time: \(now),\(last),\(now - last)")
+        
+        if deprecated {
+            
+            print("时间过期")
+        }else {
+            
+            print("没有过期")
+        }
+        
+        if url_cache != nil && url_cache! == url && !deprecated {
             
             print("广告数据与上一次是一样的，跳过保存！")
             return
         }
+        
+        NSUserDefaults.standardUserDefaults().setObject("\(now)", forKey: AppLaunchADViewTimeKey)
         
         let u = NSURL(string: url)
         
